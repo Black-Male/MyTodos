@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 
-
 function Login({currentUsers, onClick}){
     const [name, setName] = useState('')
 
@@ -20,7 +19,7 @@ function Login({currentUsers, onClick}){
                         <ul className="dropdown-menu">
                             {currentUsers.map((user) => {
                                 return(
-                                    <li><a className="dropdown-item" href="#" id ={user.id} onClick={onClick}>{user.name}</a></li>
+                                    <li><a className="dropdown-item" href="/tasks" id ={user.id} onClick={onClick}>{user.name}</a></li>
                                 )
                             })}
                         </ul>
