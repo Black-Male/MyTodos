@@ -52,11 +52,16 @@ function PageHandler(){
     // function to fetch the tasks for the user and all that 
     const idKey = localStorage.getItem("userId")
 
-    const src = [`http://localhost:9292/users/${idKey}/tasks`, `http://localhost:9292/users/${idKey}/tasks/done`, `http://localhost:9292/users/${idKey}/tasks/notdone`, `http://localhost:9292/users/${idKey}/tasks/date-ascending`, `http://localhost:9292/users/${idKey}/tasks/date-descending`]
-    
-    // console.log(`tasks: ${tasks[0]}`)
+    const src = [`http://localhost:9292/users/${idKey}/tasks`, `http://localhost:9292/users/${idKey}/tasks/done`, `http://localhost:9292/users/${idKey}/tasks/notdone`, `http://localhost:9292/users/${idKey}/tasks/date-ascending`, `http://localhost:9292/users/${idKey}/tasks/date-descending`]   
 
-    // console.log(users)
+    const deleteTask = (taskID)=>{
+        // fetch(`http://localhost:9292/tasks/${taskID}`, {
+        //     method: "DELETE",
+        // })
+        console.log(taskID)
+    }
+
+
     return(
         <div>
             <BrowserRouter>
@@ -70,7 +75,6 @@ function PageHandler(){
                        <Login
                         currentUsers={users}
                         onClick={isClicked}
-                        onSubmit={(z) => z.preventDefault()}
                         />
                     }/>
                 </Routes>

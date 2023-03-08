@@ -1,11 +1,31 @@
 import React, {useState} from "react";
 
-function Login({currentUsers, onClick, onSubmit}){
+function Login({currentUsers, onClick}){
     const [name, setName] = useState('')
+    // const addUser = (e) => {
+    //     e.preventDefault()
+    //     fetch(`http://localhost:9292/users`, {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         body: JSON.stringify({
+    //             name: e,
+    //         }),
+    //     })
+    //     .then(res => res.json())
+    //     .then(newUser => {
+    //         onAddUser(newUser)
+
+    //     })
+    // }
+    const addUser = (z) => {
+        z.preventDefault()
+    }
 
     return(
         <div className="container-md">
-            <form action="/users" method="post">
+            <form onSubmit={addUser}>
                 <div>
                     <h1 className="text-centre-padding">Login/Register a List Owner</h1>
                 </div>
@@ -29,7 +49,7 @@ function Login({currentUsers, onClick, onSubmit}){
                 <div className="mb-3">
                     <label className="form-label" htmlFor="userNameInput">Add New User</label>
                     <input id="userNameInput" type="text" className = "form-control" placeholder="Enter-the-user's-name-here" name="addUser" value={name} onChange={(e)=>{setName(e.target.value)}}></input>
-                    <button type="submit" className="btn btn-primary" onSubmit={onSubmit}>Add User</button>
+                    <button type="submit" className="btn btn-primary" >Add User</button>
                 </div>
             </form>
         </div>

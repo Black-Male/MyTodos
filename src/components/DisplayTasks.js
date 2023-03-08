@@ -27,6 +27,13 @@ function DisplayTasks({source}){
     },[])
     console.log(tasks)
 
+    const deleteTask = (z)=>{
+        const taskID = z.target.id
+        fetch(`http://localhost:9292/tasks/${taskID}`, {
+            method: "DELETE",
+        })
+        console.log(z.target.id)
+    }
     
     return(
         <div className="container-md">
@@ -52,6 +59,7 @@ function DisplayTasks({source}){
                     <th>TASK DETAILS</th>
                     <th>DUE DATE</th>
                     <th>DONE?</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -63,6 +71,7 @@ function DisplayTasks({source}){
                             <td>{task.task_details}</td>
                             <td>{task.due_date}</td>
                             <td>{task.done.toString()}</td>
+                            <td><button className="btn btn-primary" id={task.id} onClick={deleteTask}>Delete</button></td>
                         </tr>
                     )
                 })}
