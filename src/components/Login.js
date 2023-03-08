@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-function Login({currentUsers, onClick}){
+function Login({currentUsers, onClick, onSubmit}){
     const [name, setName] = useState('')
 
     return(
@@ -18,6 +18,7 @@ function Login({currentUsers, onClick}){
                         </button>
                         <ul className="dropdown-menu">
                             {currentUsers.map((user) => {
+                                // console.log (user)
                                 return(
                                     <li><a className="dropdown-item" href="/tasks" id ={user.id} onClick={onClick}>{user.name}</a></li>
                                 )
@@ -28,7 +29,7 @@ function Login({currentUsers, onClick}){
                 <div className="mb-3">
                     <label className="form-label" htmlFor="userNameInput">Add New User</label>
                     <input id="userNameInput" type="text" className = "form-control" placeholder="Enter-the-user's-name-here" name="addUser" value={name} onChange={(e)=>{setName(e.target.value)}}></input>
-                    <button type="submit" className="btn btn-primary">Add User</button>
+                    <button type="submit" className="btn btn-primary" onSubmit={onSubmit}>Add User</button>
                 </div>
             </form>
         </div>
