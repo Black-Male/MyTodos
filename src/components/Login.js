@@ -1,26 +1,26 @@
+import { wait } from "@testing-library/user-event/dist/utils";
 import React, {useState} from "react";
 
 function Login({currentUsers, onClick}){
     const [name, setName] = useState('')
-    // const addUser = (e) => {
-    //     e.preventDefault()
-    //     fetch(`http://localhost:9292/users`, {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify({
-    //             name: e,
-    //         }),
-    //     })
-    //     .then(res => res.json())
-    //     .then(newUser => {
-    //         onAddUser(newUser)
-
-    //     })
-    // }
+    let url = 'http://localhost:9292/users'
     const addUser = (z) => {
         z.preventDefault()
+        fetch(url,{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                name: name
+            }),
+        })
+        .then(res => res.json())
+        .catch((error) => {
+            console.error(error);
+        })
+        
+        alert("User added; reload page")
     }
 
     return(
@@ -33,14 +33,14 @@ function Login({currentUsers, onClick}){
                 <div className="container-md">
                     <label className="form-label" htmlFor="select-user">Kindly Select the correct user</label>
                     <div className="dropdown select-user">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Available Users
                         </button>
                         <ul className="dropdown-menu">
-                            {currentUsers.map((user) => {
+                            {currentUsers.map((user, index) => {
                                 // console.log (user)
                                 return(
-                                    <li><a className="dropdown-item" href="/tasks" id ={user.id} onClick={onClick}>{user.name}</a></li>
+                                    <li key={index}><a className="dropdown-item" href="/tasks" id ={user.id} onClick={onClick}>{user.name}</a></li>
                                 )
                             })}
                         </ul>

@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import React from "react";
+import { wait } from "@testing-library/user-event/dist/utils";
+import AddTask from "./AddTask";
  
-function DisplayTasks({source}){
+function DisplayTasks({source, ID}){
     // used to decide which ruby thing to fetch
     const [link, setLink] = useState(0)
     console.log(link)
@@ -28,30 +30,41 @@ function DisplayTasks({source}){
     console.log(tasks)
 
     const deleteTask = (z)=>{
+        z.preventDefault()
         const taskID = z.target.id
         fetch(`http://localhost:9292/tasks/${taskID}`, {
             method: "DELETE",
         })
-        console.log(z.target.id)
+        // console.log(z.target.id)
+
+        wait(5)
+        window.location.reload()
     }
+
+
+    const changeStatus = () => {}
     
     return(
         <div className="container-md">
             <h3 className="text-centre-padding">Your Tasks</h3>
             <h5 className="text-centre-padding">Sorted By: {arr[localStorage.getItem("val")]}</h5>
             <br/>
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <div className="dropdown">
+                <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Dropdown button
                 </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="/tasks" id="0" onClick={onClick}>Default</a></li>
-                    <li><a class="dropdown-item" href="/tasks" id="1" onClick={onClick}>Complete</a></li>
-                    <li><a class="dropdown-item" href="/tasks" id="2" onClick={onClick}>Incomplete</a></li>
-                    <li><a class="dropdown-item" href="/tasks" id="3" onClick={onClick}>Date: Ascending</a></li>
-                    <li><a class="dropdown-item" href="/tasks" id="4" onClick={onClick}>Date: Descending</a></li>
+                <ul className="dropdown-menu">
+                    <li><a className="dropdown-item" href="/tasks" id="0" onClick={onClick}>Default</a></li>
+                    <li><a className="dropdown-item" href="/tasks" id="1" onClick={onClick}>Complete</a></li>
+                    <li><a className="dropdown-item" href="/tasks" id="2" onClick={onClick}>Incomplete</a></li>
+                    <li><a className="dropdown-item" href="/tasks" id="3" onClick={onClick}>Date: Ascending</a></li>
+                    <li><a className="dropdown-item" href="/tasks" id="4" onClick={onClick}>Date: Descending</a></li>
                 </ul>
             </div>
+            <br/>
+            <AddTask
+                ID = {ID}
+            />
             <table className="table table-striped">
                 <thead>
                 <tr>
@@ -70,8 +83,8 @@ function DisplayTasks({source}){
                             <td>{task.id}</td>
                             <td>{task.task_details}</td>
                             <td>{task.due_date}</td>
-                            <td>{task.done.toString()}</td>
-                            <td><button className="btn btn-primary" id={task.id} onClick={deleteTask}>Delete</button></td>
+                            <td><a href="/tasks"><button className="btn btn-secondary" onClick={changeStatus}>{task.done.toString()}</button></a></td>
+                            <td><a href="/tasks"><button className="btn btn-primary" id={task.id} onClick={deleteTask}>Delete</button></a></td>
                         </tr>
                     )
                 })}
