@@ -21,7 +21,7 @@ function AddTask({ID}){
                 due_date: dueDate,
                 done: done,
                 user_id: userId
-            })
+            }),
         })
         .then(res => res.json())
         .catch((error)=>{

@@ -42,7 +42,21 @@ function DisplayTasks({source, ID}){
     }
 
 
-    const changeStatus = () => {}
+    const changeStatus = (obj) => {
+        const url = `http://localhost:9292/tasks/${obj.id}`
+        const triggered= !obj.done
+        console.log(triggered)
+        fetch(url, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                done: triggered,
+            }),
+        })
+        alert("Task Status Updated; Refresh Page for Changes")
+    }
     
     return(
         <div className="container-md">
@@ -83,7 +97,10 @@ function DisplayTasks({source, ID}){
                             <td>{task.id}</td>
                             <td>{task.task_details}</td>
                             <td>{task.due_date}</td>
-                            <td><a href="/tasks"><button className="btn btn-secondary" onClick={changeStatus}>{task.done.toString()}</button></a></td>
+                            <td><a href="/tasks"><button className="btn btn-secondary" onClick={(z)=> {
+                                z.preventDefault()
+                                changeStatus(task)
+                            }}>{task.done.toString()}</button></a></td>
                             <td><a href="/tasks"><button className="btn btn-primary" id={task.id} onClick={deleteTask}>Delete</button></a></td>
                         </tr>
                     )
